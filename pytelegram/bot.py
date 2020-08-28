@@ -12,13 +12,26 @@ logging.basicConfig(format='%(asctime)s:%(name):½(level): %(message)s', datefmt
 class TelegramBot:
 
     def __init__(self, bot_credentials):
+        """
+
+        :param bot_credentials: dict object containing bot credentials or file path to a credentials json file
+        :type bot_credentials: dict or str
+        """
+        if isinstance(bot_credentials, str):
+            with open(bot_credentials, 'r') as fp:
+                bot_credentials = json.load(fp)
+
         self.name = bot_credentials.get('name', 'Bot')
         self.token = bot_credentials['token']
         self.chat_id = bot_credentials['chat_id']
-        self.base_url = 'https://api.telegram.org/bot' + self.token
+        self.base_url = f'https://api.telegram.org/bot{self.token}'
 
     def set_chat_id(self, chat_id):
         self.chat_id = chat_id
+
+    def set_token(self, token):
+        self.token = token
+        self.base_url = f'https://api.telegram.org/bot{self.token}'
 
     def send_message(self, message):
         url = f'{self.base_url}/sendMessage'
