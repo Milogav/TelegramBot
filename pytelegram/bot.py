@@ -134,13 +134,11 @@ class TelegramBot:
 if __name__ == '__main__':
 
     cwd = os.path.dirname(os.path.realpath(__file__))
-    bot_credentials_file = os.path.join(cwd, 'mr_w_credentials.json')
+    bot_credentials_file = os.path.join(cwd, 'credentials.json')
     with open(bot_credentials_file, 'r') as fp:
         credentials = json.load(fp)
 
     bot = TelegramBot(bot_credentials=credentials)
-    # bot.send_message('Foto de prueba')
-    file_file = '/home/miguel/Imágenes/as-de-corazones.jpg'
-    bot.send_file(file_input=file_file)
+    bot.send_message('Example message')
 
 
